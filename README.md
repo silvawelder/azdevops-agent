@@ -10,7 +10,7 @@ https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-person
 
 # Deploy on Kubernetes steps
 
-## Create the namespace for Namespace
+## Create the namespace
 kubectl create ns azdevops-agent
 
 ## Create secrets
