@@ -1,5 +1,5 @@
 # azdevops-agent
-a self hosted agent to deploy in k8s
+A self hosted Azure DevOps agent to deploy in k8s
 
 # Before start, read this (:
 The Dockerfile of this agent uses the Docker in Docker image, if you need to run docker commands and secure you environment, or needs to work on docker image cache, is more wise deploy your agent inside a instance or VM.
