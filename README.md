@@ -6,7 +6,7 @@ The Dockerfile of this agent uses the Docker in Docker image, if you need to run
 
 # Azure DevOps step
 ## Create your PAT on Azure DevOps
-[https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows#create-a-pat)
+[How to create your Personal Access Token](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows#create-a-pat)
 
 # Deploy on Kubernetes steps
 
