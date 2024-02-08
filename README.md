@@ -34,3 +34,5 @@ kubectl create secret generic azdevops \
 ```
 kubectl apply -f deployment.yaml
 ```
+
+For more informations read this documentation: https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/docker?view=azure-devops
