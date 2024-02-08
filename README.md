@@ -2,10 +2,25 @@
 a self hosted agent to deploy in k8s
 
 # Before start, read this (:
-The Dockerfile of this agent uses the Docker in Docker image, if you need to run docker commands in a secure way, or needs to work on docker image cache, is more wise deploy your agent inside a instance or VM.
+The Dockerfile of this agent uses the Docker in Docker image, if you need to run docker commands and secure you environment, or needs to work on docker image cache, is more wise deploy your agent inside a instance or VM.
 
+# Azure DevOps step
+## Create your PAT on Azure DevOps
+https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows
 
-# Environment variables
+# Deploy on Kubernetes steps
+
+## Create the namespace for Namespace
+kubectl create ns azdevops-agent
+
+## Create secrets
+```
+kubectl create secret generic azdevops \
+  --from-literal=AZP_URL=https://dev.azure.com/yourOrg \
+  --from-literal=AZP_TOKEN=YourPAT \
+  --from-literal=AZP_POOL=NameOfYourPool
+```
+
 | Environment variable | Description |
 |    -  |   -   |
 | AZP_URL | The URL of the Azure DevOps or Azure DevOps Server instance. |
@@ -14,21 +29,6 @@ The Dockerfile of this agent uses the Docker in Docker image, if you need to run
 | AZP_POOL | Agent pool name (default value: Default). |
 | AZP_WORK | Work directory (default value: _work). |
 
-## Create your PAT on Azure DevOps
-https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows
-
-# Deploy Kubernetes
-
-## Create the namespace for Namespace
-kubectl create ns azdevops-agent
-
-## Kube Secrets
-```
-kubectl create secret generic azdevops \
-  --from-literal=AZP_URL=https://dev.azure.com/yourOrg \
-  --from-literal=AZP_TOKEN=YourPAT \
-  --from-literal=AZP_POOL=NameOfYourPool
-```
 ## Apply the deployment manifest
 
 ```
