@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-dind
+  namespace: azdevops-agent
+  labels:
+    app: azdevops-agent
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1 #here is the configuration for the actual agent always running
+  selector:
+    matchLabels:
+      app: azdevops-agent      
+  template:
+    metadata:
+      labels:
+        app: azdevops-agent
+    spec:
+      containers:
+      - name: agent-deploy-build
+        image: <registry-server>/azp-agent:<tag>
+        env:
+          - name: AZP_URL
+            valueFrom:
+              secretKeyRef:
+                name: azdevops
+                key: AZP_URL
+          - name: AZP_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: azdevops
+                key: AZP_TOKEN
+          - name: AZP_POOL
+            valueFrom:
+              secretKeyRef:
+                name: azdevops
+                key: AZP_POOL       
+        #needs to run on previleged mode because of dind image
+        securityContext:
+          privileged: true
+          runAsUser: 0
+
+        ports:
+          - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "2048Mi"
+            cpu: "1000m"
+      imagePullSecrets:
+        - name: your-registry-credentials
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azdevops-agent
+spec:
+  selector:
+    app: azdevops-agent
+  ports:
+    - port: 80
+      name: azdevops-agent
+---
